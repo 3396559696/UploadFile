@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更改密码</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background:url("picture/shan.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .back{
+        position: absolute;
+        width: 25px;
+        left: 10px;
+        top: 2%;
+        text-align: center;
+        transition: transform 0.2s ease-out,color 0.2s ease-out;
+        background: rgba(244, 245, 245, 0.52);
+        border-radius: 10px;
+    }
+    .back:hover{
+        color: rgba(86, 86, 86, 0.42);
+        transform: scale(1.2);
+    }
+    #Dialog{
+        display: none;
+        position: fixed;
+        text-align: center;
+        justify-content: space-around;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.71);
+        padding: 20px;
+        border-radius: 15px;
+    }
+    #dialog-content{
+        display: flex;
+        justify-content: space-between;
+    }
+    #dialog-content,h3{
+        flex-direction: column;
+    }
+    .bg{
+        width: 100vw;
+        height: 100vh;
+    }
+    .main_content{
+        margin-left: 8%;
+        display: flex;
+    }
+    .main_content h2{
+        text-align: center;
+        font-size: 40px;
+    }
+    .forget_table{
+        padding: 30px 60px;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.53);
+        font-size: 20px;
+        margin-top: 20%;
+        margin-left: 25%;
+    }
+    .forget_table input{
+        height: 50px;
+        border: none;
+        background: none;
+        outline: none;
+    }
+    .forget_table input{
+        height: 25px;
+        /*width: 150px;*/
+        border: none;
+        background:linear-gradient(to right, rgba(72, 247, 223, 0.65), rgba(244, 0, 252, 0.88)) no-repeat right bottom;
+        background-size: 0 2px;
+        transition: background-size 1.5s;
+        line-height: 30px;
+        outline: none;
+    }
+    .forget_table input:focus{
+        background-size: 100% 2px;
+        border: none;
+        background-position: left bottom;
+    }
+    #change{
+        font-size: 15px;
+        width: 80px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.69) 2px 3px 5px;
+        transition: transform 0.5s ease-out,background-color 0.5s ease-out,box-shadow 0.5s ease-out;
+    }
+    #change:hover{
+        transform: translateY(3px);
+        background-color: rgba(252, 0, 0, 0.75);
+        color: rgb(255, 255, 255);
+        box-shadow: none;
+    }
+    #clear{
+        font-size: 15px;
+        width: 80px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.65) 2px 3px 5px;
+        transition: transform 0.5s ease-out,background-color 0.5s ease-out,box-shadow 0.5s ease-out;
+    }
+    #clear:hover{
+        transform: translateY(3px);
+        box-shadow: none;
+        background-color: rgba(114, 115, 115, 0.75);
+        color: rgb(237, 237, 237);
+    }
+    .btn{
+        width: 300px;
+        text-align: center;
+    }
+</style>
+<body>
+<div class="bg">
+    <div class="main_content">
+        <h2>修改密码</h2>
+        <div class="forget_table">
+            <form action="toModifypw.php" method="post" onsubmit="return InputCheck()">
+                <table>
+                    <tr>
+                        <td>原&nbsp;&nbsp;密&nbsp;&nbsp;码: </td>
+                        <td><input type="password" name="oldpw" id="oldpassword"/> </td>
+                    </tr>
+                    <tr>
+                        <td>新&nbsp;&nbsp;密&nbsp;&nbsp;码: </td>
+                        <td><input type="password" name="newpw" id="newpassword"/> </td>
+                    </tr>
+                    <tr>
+                        <td>确认密码: </td>
+                        <td><input type="password" name="renewpw" id="renewpassword"/></td>
+                    </tr>
+                    <tr class="btn">
+                        <td><input type="submit" value="修改密码" id="change"/></td>
+                        <td><input type="reset" value="清空密码" id="clear"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="back" onclick="location='index.html'"><i class="fa-solid fa-left-long"></i></div>
+</div>
+<div id="Dialog">
+    <div class="dialog-content" id="dialog-content" style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 id="main-content"></h3>
+    </div>
+</div>
+</body>
+<script>
+    function InputCheck(){
+        var oldpassword = document.getElementById('oldpassword').value.trim();
+        var newpassword = document.getElementById('newpassword').value.trim();
+        var renewpassword = document.getElementById('renewpassword').value.trim();
+        if(oldpassword=='' || newpassword=='' || renewpassword==''){
+            alert('原密码或新密码不能为空');
+            return false;
+        }
+        if(newpassword!=renewpassword){
+            alert('两次密码不一致')
+            return false;
+        }
+        return true;
+    }
+    function remind(n) {
+        document.getElementById('Dialog').style.display = 'block';
+        document.getElementById('main-content').textContent = n;
+        setTimeout(function () {
+            document.getElementById('Dialog').style.display = 'none';
+        }, 3000);
+    }
+</script>
+</html>
